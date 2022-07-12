@@ -18,7 +18,7 @@ class ProdConfig(Config):
     DEBUG = False
     TESTING = False
     DATABASE_URI = environ.get("PROD_DATABASE_URI")
-    SQLALCHEMY_DATABASE_URI = environ.get("PROD_SQLALCHEMY_DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = "postgres://hwhhbdiiqspkaw:620334b20c597bfb0a1cc63ac401e0d047ab54059433e92485c89968bdd125c8@ec2-3-229-161-70.compute-1.amazonaws.com:5432/d8dugjqmc1p53s"
 
 
 class DevConfig(Config):
