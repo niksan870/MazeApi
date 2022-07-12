@@ -1,0 +1,6 @@
+.venv
+**/*.db
+.env
+.pycharm
+.idea/
+__pycache__/
