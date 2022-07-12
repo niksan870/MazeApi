@@ -40,7 +40,7 @@ def token_required(f):
             return jsonify({"message": MISSING_TOKEN}), 401
 
         try:
-            data = jwt.decode(token, environ.get("SECRET_KEY"))
+            data = jwt.decode(token, 'secret_key')
             current_user = User.query.filter_by(public_id=data["public_id"]).first()
         except DecodeError:
             return jsonify({"message": INVALID_TOKEN}), 401
