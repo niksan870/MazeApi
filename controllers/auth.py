@@ -54,7 +54,7 @@ def signin():
 
 @auth.route("/user", methods=["POST"])
 def signup():
-    mapped_user = UserMapper.map_2_dto(request.json)
+    mapped_user = UserMapper.map_payload_2_dto(request.json)
 
     if not User.query.filter_by(name=mapped_user.name).first():
         user = User(

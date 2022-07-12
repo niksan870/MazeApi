@@ -13,7 +13,7 @@ class BaseMapper:
         self.fields = set(self.dto.__slots__)
         self._required_fields = set()
 
-    def _map_2_dto(self, kwargs):
+    def _map_payload_2_dto(self, kwargs):
         if empty_fields := {k for k, v in kwargs.items() if v == ""}:
             raise ValidationException(
                 f'Field(s) empty: {"".join(empty_fields)}'
@@ -28,8 +28,8 @@ class BaseMapper:
             )
         return self.dto(**kwargs)
 
-    def map_2_dto(self, kwargs):
-        return self._map_2_dto(kwargs)
+    def map_payload_2_dto(self, kwargs):
+        return self._map_payload_2_dto(kwargs)
 
     @property
     def required_fields(self):
@@ -44,8 +44,8 @@ class BaseUserMapper(BaseMapper):
         super().__init__(dto)
         self._required_fields = {"name", "password"}
 
-    def map_2_dto(self, kwargs):
-        dto = self._map_2_dto(kwargs)
+    def map_payload_2_dto(self, kwargs):
+        dto = self._map_payload_2_dto(kwargs)
         password_check(dto.password)
         return dto
 
@@ -55,10 +55,10 @@ class BaseMazeMapper(BaseMapper):
         super().__init__(dto)
         self._required_fields = {"entrance", "grid_size", "walls"}
 
-    def map_2_dto(self, kwargs):
+    def map_payload_2_dto(self, kwargs):
         if "gridSize" in kwargs:
             kwargs["grid_size"] = kwargs.pop("gridSize")
-        dto = self._map_2_dto(kwargs)
+        dto = self._map_payload_2_dto(kwargs)
         if not re.search(r"\d+x\d+", dto.grid_size):
             raise ValidationException(
                 "Grid size format is wrong, int-x-int was expected"

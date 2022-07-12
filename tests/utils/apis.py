@@ -28,7 +28,7 @@ def create_maze(client, payload, token=None):
     return do_post(client, MazeRoutes.BASE, payload=payload, token=token)
 
 
-def get_maze_path(client, maze_id, token=None, solution_type=None):
+def get_maze_path(client, maze_id="1", token=None, solution_type=None):
     return do_get(client, MazeRoutes().get_maze(maze_id, solution_type), token=token)
 
 

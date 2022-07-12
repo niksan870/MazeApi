@@ -265,16 +265,18 @@ def test_create_maze_with_misspelled_or_different_fields(client):
 
 
 def test_no_solution_specified(client):
-    payload = {"entrance": "A1", "gridSize": "8x8", "walls": ["C1", "G1", "A2"]}
+    payload = {"entrance": "A1", "gridSize": "8x8",
+               "walls": ["C1", "G1", "A2"]}
     token = get_token(client)
     create_maze(client, payload, token)
-    get_maze = get_maze_path(client, maze_id="1", token=token)
+    get_maze = get_maze_path(client, token=token)
     assert get_maze.status_code == 400
     assert get_maze.json == {"message": "Solution not in: min, max"}
 
 
 def test_should_catch_invalid_entrance_field(client):
-    payload = {"entrance": "AA", "gridSize": "8x8", "walls": ["C1", "G1", "A2"]}
+    payload = {"entrance": "AA", "gridSize": "8x8",
+               "walls": ["C1", "G1", "A2"]}
     token = get_token(client)
     create_maze_res = create_maze(client, payload, token)
     assert create_maze_res.status_code == 401
@@ -326,16 +328,25 @@ def test_no_path_found(client):
     }
     token = get_token(client)
     create_maze(client, payload, token)
-    get_maze = get_maze_path(client, maze_id="1", solution_type="min", token=token)
+    get_maze = get_maze_path(client, solution_type="min", token=token)
     assert get_maze.status_code == 400
     assert get_maze.json == {"message": "No path found"}
 
 
+def test_should_handle_non_existing_maze(client):
+    token = get_token(client)
+    get_maze = get_maze_path(client, maze_id="10", solution_type="min",
+                             token=token)
+    assert get_maze.status_code == 400
+    assert get_maze.json == {'message': 'No maze with such id'}
+
+
 def test_get_shortest_and_longest_path_of_maze(client):
-    payload = {"entrance": "A1", "gridSize": "8x8", "walls": ["C1", "G1", "A2"]}
+    payload = {"entrance": "A1", "gridSize": "8x8",
+               "walls": ["C1", "G1", "A2"]}
     token = get_token(client)
     create_maze(client, payload, token)
-    shortest_path = get_maze_path(client, maze_id="1", solution_type="min", token=token)
+    shortest_path = get_maze_path(client, solution_type="min", token=token)
     assert shortest_path.json == {
         "path": [
             "A1",
@@ -356,7 +367,7 @@ def test_get_shortest_and_longest_path_of_maze(client):
         ]
     }
 
-    longest_path = get_maze_path(client, maze_id="1", solution_type="max", token=token)
+    longest_path = get_maze_path(client, solution_type="max", token=token)
     assert longest_path.json == {
         "path": [
             "A1",
@@ -421,7 +432,8 @@ def test_get_shortest_and_longest_path_of_maze(client):
 
 
 def test_get_user_specific_mazes(client):
-    payload = {"entrance": "A1", "gridSize": "8x8", "walls": ["C1", "G1", "A2"]}
+    payload = {"entrance": "A1", "gridSize": "8x8",
+               "walls": ["C1", "G1", "A2"]}
 
     first_user_token = get_token(client)
     create_maze(client, payload, first_user_token)
@@ -440,3 +452,21 @@ def test_get_user_specific_mazes(client):
 
     assert len(first_user_mazes_res.json) == 3
     assert len(second_user_mazes_res.json) == 3
+
+
+def test_get_mazes(client):
+    payload = {"entrance": "A1", "gridSize": "8x8",
+               "walls": ["C1", "G1", "A2"]}
+
+    first_user_token = get_token(client)
+    create_maze(client, payload, first_user_token)
+    create_maze(client, payload, first_user_token)
+    create_maze(client, payload, first_user_token)
+
+    assert get_mazes(client, first_user_token).json == [
+        {'entrance': 'A1', 'grid_size': '8x8', 'id': 1, 'user_id': 1,
+         'walls': ['C1', 'G1', 'A2']},
+        {'entrance': 'A1', 'grid_size': '8x8', 'id': 2, 'user_id': 1,
+         'walls': ['C1', 'G1', 'A2']},
+        {'entrance': 'A1', 'grid_size': '8x8', 'id': 3, 'user_id': 1,
+         'walls': ['C1', 'G1', 'A2']}]

@@ -18,7 +18,7 @@ maze = Blueprint("maze", __name__)
 @maze.route("/maze", methods=["POST"])
 @token_required
 def create_maze(current_user):
-    mapped_maze = MazeMapper.map_2_dto(request.json)
+    mapped_maze = MazeMapper.map_payload_2_dto(request.json)
     new_maze = Maze(
         grid_size=mapped_maze.grid_size,
         walls=mapped_maze.walls,
@@ -38,9 +38,12 @@ def get_maze(_, maze_id):
     if solution not in SOLUTIONS:
         raise BaseAppException(f"Solution not in: {', '.join(SOLUTIONS)}")
 
-    m = Maze.query.filter_by(id=maze_id).first()
+    maze = Maze.query.filter_by(id=maze_id).first()
+    if not maze:
+        raise BaseAppException("No maze with such id")
     mg = MazeGame(
-        entrance=m.entrance, grid_size=m.grid_size, walls=json.loads(m.walls)
+        entrance=maze.entrance, grid_size=maze.grid_size,
+        walls=json.loads(maze.walls)
     )
     path = mg.shortest_path(True if solution == "min" else False)
     return make_response(jsonify(path), 200)
