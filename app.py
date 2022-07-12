@@ -32,8 +32,7 @@ def create_app(config_path="config.DevConfig", drop_db=False):
     return app
 
 
-app = create_app()
-prod_app = create_app()
+app = create_app("config.ProdConfig")
 
 if __name__ == "__main__":
     # setting debug to True enables hot reload
