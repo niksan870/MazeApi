@@ -3,7 +3,7 @@ from functools import wraps
 from os import environ
 
 import jwt
-from jwt import DecodeError
+from jwt import PyJWTError
 
 from constants import MISSING_TOKEN, INVALID_TOKEN
 from exceptions.exceptions import ValidationException
@@ -43,7 +43,7 @@ def token_required(f):
             data = jwt.decode(token, environ.get("SECRET_KEY"))
             current_user = User.query.filter_by(
                 public_id=data["public_id"]).first()
-        except DecodeError:
+        except PyJWTError:
             return jsonify({"message": INVALID_TOKEN}), 401
         return f(current_user, *args, **kwargs)
 
