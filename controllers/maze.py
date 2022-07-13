@@ -1,4 +1,5 @@
 import json
+import uuid
 
 from flask import Blueprint
 
@@ -20,6 +21,7 @@ maze = Blueprint("maze", __name__)
 def create_maze(current_user):
     mapped_maze = MazeMapper.map_payload_2_dto(request.json)
     new_maze = Maze(
+        public_id=str(uuid.uuid4()),
         grid_size=mapped_maze.grid_size,
         walls=mapped_maze.walls,
         entrance=mapped_maze.entrance,
@@ -28,7 +30,7 @@ def create_maze(current_user):
     db.session.add(new_maze)
     db.session.commit()
 
-    return make_response({"maze_id": new_maze.id}, 201)
+    return make_response({"maze_id": new_maze.public_id}, 201)
 
 
 @maze.route("/maze/<maze_id>", methods=["GET"])
@@ -38,7 +40,7 @@ def get_maze(_, maze_id):
     if solution not in SOLUTIONS:
         raise BaseAppException(f"Solution not in: {', '.join(SOLUTIONS)}")
 
-    maze = Maze.query.filter_by(id=maze_id).first()
+    maze = Maze.query.filter_by(public_id=maze_id).first()
     if not maze:
         raise BaseAppException("No maze with such id")
     mg = MazeGame(

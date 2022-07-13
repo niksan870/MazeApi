@@ -7,6 +7,7 @@ class Maze(db.Model):
     grid_size = db.Column(db.String(100))
     walls = db.Column(db.String(1000))
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    public_id = db.Column(db.String(50), unique=True)
 
     def __repr__(self):
-        return f"Maze({self.entrance} {self.grid_size})"
+        return f"Maze({self.id} {self.user_id} {self.entrance} {self.grid_size} {self.walls})"

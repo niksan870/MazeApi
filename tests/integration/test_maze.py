@@ -137,7 +137,7 @@ def test_create_maze(client):
     token = get_token(client)
     maze_response = create_maze(client, payload, token)
     assert maze_response.status_code == 201
-    assert maze_response.json == {"maze_id": 1}
+    assert maze_response.json["maze_id"]
 
 
 def test_create_maze_with_missing_entrance_field(client):
@@ -327,8 +327,10 @@ def test_no_path_found(client):
         ],
     }
     token = get_token(client)
-    create_maze(client, payload, token)
-    get_maze = get_maze_path(client, solution_type="min", token=token)
+    create_res = create_maze(client, payload, token)
+    get_maze = get_maze_path(client, maze_id=create_res.json["maze_id"],
+                             solution_type="min",
+                             token=token)
     assert get_maze.status_code == 400
     assert get_maze.json == {"message": "No path found"}
 
@@ -345,8 +347,13 @@ def test_get_shortest_and_longest_path_of_maze(client):
     payload = {"entrance": "A1", "gridSize": "8x8",
                "walls": ["C1", "G1", "A2"]}
     token = get_token(client)
-    create_maze(client, payload, token)
-    shortest_path = get_maze_path(client, solution_type="min", token=token)
+    create_res = create_maze(client, payload, token)
+    shortest_path = get_maze_path(
+        client,
+        maze_id=create_res.json["maze_id"],
+        solution_type="min",
+        token=token
+    )
     assert shortest_path.json == {
         "path": [
             "A1",
@@ -367,7 +374,12 @@ def test_get_shortest_and_longest_path_of_maze(client):
         ]
     }
 
-    longest_path = get_maze_path(client, solution_type="max", token=token)
+    longest_path = get_maze_path(
+        client,
+        maze_id=create_res.json["maze_id"],
+        solution_type="max",
+        token=token
+    )
     assert longest_path.json == {
         "path": [
             "A1",
@@ -463,10 +475,8 @@ def test_get_mazes(client):
     create_maze(client, payload, first_user_token)
     create_maze(client, payload, first_user_token)
 
-    assert get_mazes(client, first_user_token).json == [
-        {'entrance': 'A1', 'grid_size': '8x8', 'id': 1, 'user_id': 1,
-         'walls': ['C1', 'G1', 'A2']},
-        {'entrance': 'A1', 'grid_size': '8x8', 'id': 2, 'user_id': 1,
-         'walls': ['C1', 'G1', 'A2']},
-        {'entrance': 'A1', 'grid_size': '8x8', 'id': 3, 'user_id': 1,
-         'walls': ['C1', 'G1', 'A2']}]
+    mazes = get_mazes(client, first_user_token).json
+    for maze in mazes:
+        assert list(maze.keys()) == ['entrance', 'grid_size',
+                                     'public_id', 'user_id', 'walls']
+
