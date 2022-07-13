@@ -81,7 +81,7 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIzYTkxYTg0YS05YmUzLTQwNTAtYjE4My0yZGY0NTdkN2FhNzAiLCJleHAiOjE2NTc2NjUxMjF9.AwIP8Tjf7D7-tFFtJJiUXsu8EELn6MinqI8x9OPXSMY",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxNWZkMThmMS0xODRlLTRiYTUtODdhZi00Y2M1NTA3ZDQ3NDMiLCJleHAiOjE2NTc3MDQ3NDF9.fxOSkb2IFTHUUaMgUiNHPpMU5B3d6y6C_dyUeZyz-XA",
 						"type": "text"
 					}
 				],
@@ -116,12 +116,12 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIzYTkxYTg0YS05YmUzLTQwNTAtYjE4My0yZGY0NTdkN2FhNzAiLCJleHAiOjE2NTc2NjgzODF9.c6jjgZ0dFClhxPBYb12SlE8azSakR5JOG-XDZNCe0so",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxNWZkMThmMS0xODRlLTRiYTUtODdhZi00Y2M1NTA3ZDQ3NDMiLCJleHAiOjE2NTc3MDQ3NDF9.fxOSkb2IFTHUUaMgUiNHPpMU5B3d6y6C_dyUeZyz-XA",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "https://maze-api-mvp.herokuapp.com/maze/4?solution=min",
+					"raw": "https://maze-api-mvp.herokuapp.com/maze/264f7197-693f-4396-b1ec-908c2cc3ce57?solution=min",
 					"protocol": "https",
 					"host": [
 						"maze-api-mvp",
@@ -130,7 +130,7 @@
 					],
 					"path": [
 						"maze",
-						"4"
+						"264f7197-693f-4396-b1ec-908c2cc3ce57"
 					],
 					"query": [
 						{
@@ -149,7 +149,7 @@
 				"header": [
 					{
 						"key": "x-access-token",
-						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIzYTkxYTg0YS05YmUzLTQwNTAtYjE4My0yZGY0NTdkN2FhNzAiLCJleHAiOjE2NTc2NjgzODF9.c6jjgZ0dFClhxPBYb12SlE8azSakR5JOG-XDZNCe0so",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIxNWZkMThmMS0xODRlLTRiYTUtODdhZi00Y2M1NTA3ZDQ3NDMiLCJleHAiOjE2NTc3MDQ3NDF9.fxOSkb2IFTHUUaMgUiNHPpMU5B3d6y6C_dyUeZyz-XA",
 						"type": "text"
 					}
 				],
