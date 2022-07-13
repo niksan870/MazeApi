@@ -1,0 +1,172 @@
+{
+	"info": {
+		"_postman_id": "15b21ccf-c165-4940-b151-f68590b4f9d7",
+		"name": "Maze",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"22323\",\n    \"password\": \"iTk19!n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://maze-api-mvp.herokuapp.com/user",
+					"protocol": "https",
+					"host": [
+						"maze-api-mvp",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"22323\",\n    \"password\": \"iTk19!n\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://maze-api-mvp.herokuapp.com/login",
+					"protocol": "https",
+					"host": [
+						"maze-api-mvp",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maze",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIzYTkxYTg0YS05YmUzLTQwNTAtYjE4My0yZGY0NTdkN2FhNzAiLCJleHAiOjE2NTc2NjUxMjF9.AwIP8Tjf7D7-tFFtJJiUXsu8EELn6MinqI8x9OPXSMY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"entrance\": \"A1\",\n    \"gridSize\": \"8x8\",\n    \"walls\": [\"C1\", \"G1\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://maze-api-mvp.herokuapp.com/maze",
+					"protocol": "https",
+					"host": [
+						"maze-api-mvp",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"maze"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Maze",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIzYTkxYTg0YS05YmUzLTQwNTAtYjE4My0yZGY0NTdkN2FhNzAiLCJleHAiOjE2NTc2NjgzODF9.c6jjgZ0dFClhxPBYb12SlE8azSakR5JOG-XDZNCe0so",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://maze-api-mvp.herokuapp.com/maze/4?solution=min",
+					"protocol": "https",
+					"host": [
+						"maze-api-mvp",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"maze",
+						"4"
+					],
+					"query": [
+						{
+							"key": "solution",
+							"value": "min"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mazes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJwdWJsaWNfaWQiOiIzYTkxYTg0YS05YmUzLTQwNTAtYjE4My0yZGY0NTdkN2FhNzAiLCJleHAiOjE2NTc2NjgzODF9.c6jjgZ0dFClhxPBYb12SlE8azSakR5JOG-XDZNCe0so",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://maze-api-mvp.herokuapp.com/maze",
+					"protocol": "https",
+					"host": [
+						"maze-api-mvp",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"maze"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
