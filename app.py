@@ -12,6 +12,7 @@ def create_app(config_path="config.DevConfig", drop_db=False):
     cfg = import_string(config_path)()
     app.config.from_object(cfg)
 
+    #routes
     app.register_blueprint(auth)
     app.register_blueprint(maze)
 
